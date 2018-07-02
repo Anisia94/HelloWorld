@@ -11,9 +11,9 @@
 
 In order to utilise this project you need to have the following installed locally:
 
-*Internet Explorer 11.0 or higher__
-*[Java 1.8](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html Download Page)__
-*[The Internet Explorer Driver Server](https://goo.gl/PdgGmZ InternetExplorerDriver) (need to be downloaded on a known location from C: disk)
+Internet Explorer 11.0 or higher <br />
+[Java 1.8](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html Download Page) <br />
+[The Internet Explorer Driver Server](https://goo.gl/PdgGmZ InternetExplorerDriver) (need to be downloaded on a known location from C: disk)
 *[IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=windows IntelliJ IDEA) 
 *[Maven 3](https://maven.apache.org/download.cgi Downloading Apache Maven)
 *[Git Bash](https://git-scm.com/download/win Downloading Git)
