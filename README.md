@@ -43,7 +43,7 @@ These approaches are used to mock external dependencies (webservices and stored 
 ### 1. Recording
 
 In this phase, we'll launch the U4A application locally and execute each test case manually in order to record all the webservices and SP called. These mocks will be used in the playback phase.
-We have to navigate to U4A-WEB/source/U4A-EBA-ADV-EAR folder and execute in bash the following maven command:
+Go to U4A-WEB/source/U4A-EBA-ADV-EAR folder and execute in bash the following maven command:
 
    `mvn clean install -DautRec -Dliberty`
 
@@ -75,13 +75,14 @@ So let's run the app in playback mode:
 
 Using git bash go to U4A app in U4A-WEB/source/U4A-EBA-ADV-EAR module and run :
 
-`clean install -DautPlay -Dliberty`
+  `clean install -DautPlay -Dliberty`
 
 Start the application server as in the previous stage using :
 
   `mvn liberty:run-server -Pliberty,development`
 
 Now move back, on the current application U4A_AUT and run:
+
   ```maven
   mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"
   ```
