@@ -67,7 +67,8 @@ Also the responses from called stored procedures are stored in the application w
 
 ### 2. Playback
 
-   In this phase, some configuration need to be done in order to use all the registered responses from webservices and SP from the previous step. These respnses are used in automated tests.
+     In this phase, some configuration need to be done in order to use all the registered responses from webservices and SP from the previous step. These responses are used in automated tests.
+     So let's run the app in playback mode:
 
    Using git bash go to U4A app in U4A-WEB/source/U4A-EBA-ADV-EAR module and run :
 
@@ -81,7 +82,9 @@ Also the responses from called stored procedures are stored in the application w
 
    `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"`
 
-   We've just launched a wiremock server which will serve us the recorded webservices. Now we are ready to execute automated tests.
+   We've just launched a wiremock server which will serve us the recorded webservices.
+
+   Finally, we are ready to execute automated tests.
 
 
 
