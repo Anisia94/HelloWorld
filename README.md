@@ -15,7 +15,7 @@ In order to utilise this project you need to have the following installed locall
 
 - The application we're going to test
 - Internet Explorer 11.0 or higher
-- [Java 1.8](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html)
+- [JDK 8](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html) is required to build and run this project
 - [The Internet Explorer Driver Server](https://goo.gl/PdgGmZ) (downloaded on a known location from C: disk)
 - [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=windows)
 - [Maven 3](https://maven.apache.org/download.cgi) (this project is managed by maven)
@@ -31,7 +31,7 @@ is to test the logic of the application, not the ??
 
 ### 1. Recording
 
-In this phase, we'll lauch the U4A application locally and execute each test case manually in order to record all the webservices and SP called. These mocks will be used in the playback mode.
+In this phase, we'll launch the U4A application locally and execute each test case manually in order to record all the webservices and SP called. These mocks will be used in the playback mode.
 We have to navigate to U4A-WEB/source/U4A-EBA-ADV-EAR directory and execute in bash the following maven command:
 
    `mvn clean install -DautRec -Dliberty`
@@ -49,9 +49,7 @@ The recordings are stored in [src/test/resources/recorded_webservices](recorded_
 Additionally and mandatory, for each test, we have to process the recorded webservices to substitute the containing dates with placeholders. This step is necessary because we have to
 use dynamics dates according to the day in which tests are executed.
 For this purpose the commands bellow should be executed :
-
-mvn compile
-mvn -q clean compile exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.Automation"
+ `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.Automation"`
 
 This will add placeholders in recorded webservices.
 Also, the responses from called stored procedures are stored locally and ready to be used in playback mode.
@@ -64,12 +62,12 @@ Also, the responses from called stored procedures are stored locally and ready t
 
    `clean install -DautPlay -Dliberty`
 
-   Now we move on the current application U4A_AUT and run
+   Now we move back, on the current application U4A_AUT and run
 
-   `mvn compile`
-   `mvn -q clean compile exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"`
+   `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"`
 
    We've just launched a wiremock server which will serve us the recorded webservices.
+
 
 
 
