@@ -60,31 +60,35 @@ The recordings are stored in [src/test/resources/recorded_webservices](recorded_
 Additionally and mandatory, for each test, we have to process the recorded webservices to substitute the containing dates with placeholders. This step is necessary because we have to
 use dynamics dates according to the day in which tests are executed.
 For this purpose the command bellow should be executed :
- `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.Automation"`
+
+  ```maven
+  mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.Automation"
+  ```
 
 This will add placeholders in recorded webservices. Then, in playback phase, these will be replaced with the corresponding dates.
 Also the responses from called stored procedures are stored in the application we test and ready to be used in playback mode.
 
 ### 2. Playback
 
-     In this phase, some configuration need to be done in order to use all the registered responses from webservices and SP from the previous step. These responses are used in automated tests.
-     So let's run the app in playback mode:
+In this phase, some configuration need to be done in order to use all the registered responses from webservices and SP from the previous step. These responses are used in automated tests.
+So let's run the app in playback mode:
 
-   Using git bash go to U4A app in U4A-WEB/source/U4A-EBA-ADV-EAR module and run :
+Using git bash go to U4A app in U4A-WEB/source/U4A-EBA-ADV-EAR module and run :
 
-   `clean install -DautPlay -Dliberty`
+`clean install -DautPlay -Dliberty`
 
-   Start the application server as in the previous stage using :
+Start the application server as in the previous stage using :
 
-     `mvn liberty:run-server -Pliberty,development`
+  `mvn liberty:run-server -Pliberty,development`
 
-   Now move back, on the current application U4A_AUT and run:
+Now move back, on the current application U4A_AUT and run:
+  ```maven
+  mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"
+  ```
 
-   `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"`
+We've just launched a wiremock server which will serve us the recorded webservices.
 
-   We've just launched a wiremock server which will serve us the recorded webservices.
-
-   Finally, we are ready to execute automated tests.
+Finally, we are ready to execute automated tests.
 
 
 
