@@ -21,12 +21,6 @@ In order to utilise this project you need to have the following installed locall
 - [Maven 3](https://maven.apache.org/download.cgi) (this project is managed by maven)
 - [Git](https://git-scm.com/download/win)
 
-## Usage
-
-To start developing and executing automated test cases we need to go through 2 phases:  **Recording and Playback**.
-These approaches are used to mock external dependencies (called webservices and stored procedures) and then used them in our tests.
-
- Firstly,
 
 ## Setup the projects
 Firstly, we have to download the application in witch the automated tests will be written:
@@ -38,7 +32,12 @@ Secondly, we need to have the application we test, up and running locally:
 
 1. Clone all three modules [U4A_WEB](https://git.gcio.unicredit.eu/RO23/U4A_WEB), [U4A_CMN](https://git.gcio.unicredit.eu/RO23/U4A_CMN) and [U4A_PLF](https://git.gcio.unicredit.eu/RO23/U4A_PLF) repositories from GisoLab
 2. Run the following command in U4A-WEB/source/U4A-EBA-ADV-MVN using git bash:
-    'clean install -Dmaven.test.skip=true -Dliberty'
+    `clean install -Dmaven.test.skip=true -Dliberty`
+    
+## Usage
+
+To start developing and executing automated test cases we need to go through 2 phases:  **Recording and Playback**.
+These approaches are used to mock external dependencies (called webservices and stored procedures) and then used them in our tests.
 
 ### 1. Recording
 
