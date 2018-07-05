@@ -24,26 +24,37 @@ In order to utilise this project you need to have the following installed locall
 ## Usage
 
 To start developing and executing automated test cases we need to go through 2 phases:  **Recording and Playback**.
-These approaches are used to mock external dependencies (called webservices and stored procedures) and then used them in our tests. Our purpose
-is to test the logic of the application, not the ??
+These approaches are used to mock external dependencies (called webservices and stored procedures) and then used them in our tests.
 
- Firstly, we need to have the application we test, up and running locally.
+ Firstly,
+
+## Setup the projects
+Firstly, we have to download the application in witch the automated tests will be written:
+
+1. Clone the [U4A_AUT](https://git.gcio.unicredit.eu/RO23/U4A_AUT) repository from GitLab
+2. Import the project in Intellij IDEA as a maven project
+
+Secondly, we need to have the application we test, up and running locally:
+
+1. Clone all three modules [U4A_WEB](https://git.gcio.unicredit.eu/RO23/U4A_WEB), [U4A_CMN](https://git.gcio.unicredit.eu/RO23/U4A_CMN) and [U4A_PLF](https://git.gcio.unicredit.eu/RO23/U4A_PLF) repositories from GisoLab
+2. Run the following command in U4A-WEB/source/U4A-EBA-ADV-MVN using git bash:
+    'clean install -Dmaven.test.skip=true -Dliberty'
 
 ### 1. Recording
 
-In this phase, we'll launch the U4A application locally and execute each test case manually in order to record all the webservices and SP called. These mocks will be used in the playback mode.
+In this phase, we'll launch the U4A application locally and execute each test case manually in order to record all the webservices and SP called. These mocks will be used in the playback phase.
 We have to navigate to U4A-WEB/source/U4A-EBA-ADV-EAR directory and execute in bash the following maven command:
 
    `mvn clean install -DautRec -Dliberty`
 
-After that we have to launch the application server using :
+After that, we have to launch the application server using :
 
    `mvn liberty:run-server -Pliberty,development`
 
-The webservices recording is performed using several running wiremock servers, which will create stub mappings while we send requests to webservices. Basically,
+The recording of webservices is performed using several running wiremock servers, which will create stub mappings while we send requests to webservices. Basically,
 the servers will capture a collection of responses from the real services, which we'll use offline in our tests.
 
-To launch the webservices we have to run the [src/test/resources/recording_wiremock.bat](recording_wiremock.bat) and then execute the tests manually.
+To launch the servers we have to run the [src/test/resources/recording_wiremock.bat](recording_wiremock.bat) and then we have to execute the tests manually.
 The recordings are stored in [src/test/resources/recorded_webservices](recorded_webservices).
 
 Additionally and mandatory, for each test, we have to process the recorded webservices to substitute the containing dates with placeholders. This step is necessary because we have to
@@ -51,8 +62,8 @@ use dynamics dates according to the day in which tests are executed.
 For this purpose the commands bellow should be executed :
  `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.Automation"`
 
-This will add placeholders in recorded webservices.
-Also, the responses from called stored procedures are stored locally and ready to be used in playback mode.
+This will add placeholders in recorded webservices, which will be replaced with the corresponding dates in playback phase.
+Also, the responses from called stored procedures are stored in the application we test ???and ready to be used in playback mode.
 
 ### 2. Playback
 
@@ -62,11 +73,15 @@ Also, the responses from called stored procedures are stored locally and ready t
 
    `clean install -DautPlay -Dliberty`
 
-   Now we move back, on the current application U4A_AUT and run
+   start the application server as in previous stage using :
+
+     `mvn liberty:run-server -Pliberty,development`
+
+   Now we move back, on the current application U4A_AUT and run:
 
    `mvn -q compile -DskipTests exec:java -Dexec.mainClass="org.unicredit.u4a.automation.wiremock.services.PlaybackWiremock"`
 
-   We've just launched a wiremock server which will serve us the recorded webservices.
+   We've just launched a wiremock server which will serve us the recorded webservices. Now we are ready to execute automated tests.
 
 
 
